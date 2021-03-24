@@ -3,7 +3,7 @@
 const User = use("App/Models/User")
 
 class AuthController {
-    async register({request}) {
+    async register({request, response}) {
         try{
             const data = request.only(['username', 'email', 'password', 'cidade']);
             const user = await User.create(data);
@@ -13,7 +13,7 @@ class AuthController {
             response.status(500).send("Erro ao cadastrar usuário")
         }
     }
-    async authenticate({request, auth}){
+    async authenticate({request, auth, response}){
         try{
             const {email, password} = request.all();
             const {token} = await auth.attempt(email, password);
